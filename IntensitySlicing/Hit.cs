@@ -58,8 +58,9 @@ namespace IntensitySlicing
         }
         public void GImage()
         {
-            int[] arrCo = new int[255];
-            int[] arrNco = new int[255];
+            int[] r = new int[255];
+            int[] g = new int[255];
+            int[] b = new int[255];
 
             for (int i = 0; i < f_image.Width; i++)
             {
@@ -67,16 +68,26 @@ namespace IntensitySlicing
                 {
 
                     Color PixelColor = f_image.GetPixel(i, j);
-                    int C_gray = (int)(PixelColor.R + PixelColor.G + PixelColor.B) / 3;
-                    if (C_gray >= 254)
-                        C_gray = 254;
-                    arrCo[C_gray] += 1;
+                    int rr = (int)(PixelColor.R);
+                        if (rr >= 254)
+                            rr = 254;
+                        r[rr] += 1;
+                    int gg = (int)(PixelColor.G);
+                        if (gg >= 254)
+                            gg = 254;
+                        g[gg] += 1;
+                    int bb = (int)(PixelColor.B);
+                        if (bb >= 254)
+                            bb = 254;
+                        b[bb] += 1;
 
                 }
             }
-            for (int i = 0; i < arrCo.Length; i++)
+            for (int i = 0; i < r.Length; i++)
             {
-                this.chartGImage.Series["GImage"].Points.AddXY(i, arrCo[i]);
+                this.chartGImage.Series["R"].Points.AddXY(i, r[i]);
+                this.chartGImage.Series["G"].Points.AddXY(i, g[i]);
+                this.chartGImage.Series["B"].Points.AddXY(i, b[i]);
             }
 
         }
